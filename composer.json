@@ -1,0 +1,5 @@
+{
+    "require": {
+        "shulibee/beephp": "v0.0.2-beta"
+    }
+}
