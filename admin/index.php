@@ -1,25 +1,39 @@
 <?php
-/**
- * 入口文件
- */
-
-//应用名称（文件夹名）
-define('APP_NAME', 'admin');
-//应用根目录
-define('SERVER_ROOT', dirname(__FILE__));
-//框架根目录
-define('FRAME_ROOT', dirname(SERVER_ROOT).'/bphp/');
-
-//生产环境，相当于config中.ini文件的文件名
-define('ENVIRONMENT', 'dev');
 
 //开启错误提示
 ini_set('display_errors', 1);
 //设置报错级别
 error_reporting(E_ALL);
 
-//启用session
-session_start();
+require '../vendor/autoload.php';
 
-//引入路由
-require_once(FRAME_ROOT . 'router.php');
+//定义常量
+define('SERVER_ROOT', dirname(__FILE__));//应用根目录
+
+//注册本应用的命名空间
+$loader = new \BeePHP\ClassLoader();
+$loader->registerDirs([
+//    __DIR__ . "/Controllers",
+])->registerNamespaces([
+    'Admin' => __DIR__
+])->register();
+
+//路由控制
+$router = new \BeePHP\Mvc\Router();
+$router->add('/', [
+    'Controller' => 'Admin\Controllers\LoginController',
+    'Action' => 'indexAction'
+]);
+
+//依赖注入
+$di = new \BeePHP\Di\Di();
+$di->set('router', $router);
+$di->setDynamic('dbAdapter', \BeePHP\Db\Adapter\Mysql::class, array(
+    'host' => '127.0.0.1',
+    'dbname' => 'beeblog',
+    'username' => 'root',
+    'password' => '',
+));
+
+$app = new \BeePHP\Mvc\Application($di);
+$app->run();
