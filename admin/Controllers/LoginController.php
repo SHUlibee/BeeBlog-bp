@@ -13,10 +13,10 @@ class LoginController extends Controller{
     const P_ERROR = 1;
 
 	public function indexAction(){
-        $view = new View(array(
-            'suffix' => '.bs.php'
-        ));
+        $view = new View();
         $view->render("login/index");
+
+        return $view;
 	}
 	
 	public function loginAction(){
