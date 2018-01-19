@@ -35,12 +35,12 @@
         <li><a href="#"><i class="icon icon-th"></i>首页</a></li>
         <li><a href="#"><i class="icon icon-user"></i>个人资料</a></li>
         <li>
-            <a href="#"><i class="icon icon-time"></i>更新时间</a>
+            <a href="#"><i class="icon icon-time"></i>文章管理</a>
             <ul>
-                <li><a href="#">今天</a></li>
-                <li><a href="#">明天</a></li>
-                <li><a href="#">昨天</a></li>
-                <li><a href="#">本周</a></li>
+                <li><a href="#">全部</a></li>
+                <li><a href="#">已发表</a></li>
+                <li><a href="#">草稿箱</a></li>
+                <li><a href="#">回收站</a></li>
             </ul>
         </li>
         <li><a href="#"><i class="icon icon-trash"></i>垃圾篓</a></li>

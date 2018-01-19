@@ -1,6 +1,7 @@
 <?php
 namespace Admin\Service;
 
+use BeePHP\Di\Di;
 use BeePHP\Mvc\Service;
 
 /**
@@ -11,4 +12,7 @@ use BeePHP\Mvc\Service;
  */
 class UserService extends Service{
 
+    function __construct(){
+        $this->setDbAdapter(Di::getDynamic('dbAdapter'));
+    }
 }

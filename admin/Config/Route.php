@@ -16,9 +16,14 @@ $router->add('/login', [
     'Controller' => 'Admin\Controllers\LoginController',
     'Action' => 'loginAction'
 ]);
+
 $router->add('/home', [
     'Controller' => 'Admin\Controllers\HomeController',
     'Action' => 'indexAction'
 ]);
+$router->add('/blog/list', [
+    'Controller' => 'Admin\Controllers\HomeController',
+    'Action' => 'blogListAction'
+], 'post');
 
 return $router;

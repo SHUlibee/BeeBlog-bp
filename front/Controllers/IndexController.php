@@ -18,16 +18,14 @@ class IndexController extends Controller{
 
     public function indexAction(){
 
-        $dbAdapter = $this->di->getDynamic('dbAdapter');
-        $service = new BlogService($dbAdapter);
-
+        $service = new BlogService();
         $blog = $service->find(1, Blog::class);
 
-        $view = new View(array(
-            'suffix' => '.bs.php'
-        ));
+        $view = new View();
         $view->assign('blogs', [$blog]);
         $view->render("home/index");
+
+        return $view;
     }
 
 }

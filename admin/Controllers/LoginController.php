@@ -24,9 +24,7 @@ class LoginController extends Controller{
         $acc = $_POST['log'];
         $pwd = $_POST['pwd'];
 
-        $dbAdapter = $this->di->getDynamic('dbAdapter');
-        $service = new UserService($dbAdapter);
-
+        $service = new UserService();
         $user = $service->find(1, User::class);
 
         if($pwd && isset($user) && $pwd == $user->password){

@@ -1,19 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/11/10
- * Time: 16:56
- */
-
-namespace Front\Service;
-
+namespace Admin\Service;
 
 use BeePHP\Di\Di;
 use BeePHP\Mvc\Service;
 
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2018/1/16
+ * Time: 14:34
+ */
 class BlogService extends Service{
+
     function __construct(){
         $this->setDbAdapter(Di::getDynamic('dbAdapter'));
     }
+
 }
