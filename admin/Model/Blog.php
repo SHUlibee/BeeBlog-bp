@@ -12,7 +12,7 @@ use BeePHP\Mvc\Model;
 class Blog extends Model{
 
     protected $defaultProperties = [
-        'id', 'title', 'author_id', 'category_id', 'tags', 'content', 'status', 'create_time', 'update_time'
+        'id', 'title', 'author_id', 'category_id', 'tags', 'content', 'status', //'create_time', 'update_time'
     ];
 
     protected $relationProperties = [];

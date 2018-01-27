@@ -25,7 +25,7 @@ class LoginController extends Controller{
         $pwd = $_POST['pwd'];
 
         $service = new UserService();
-        $user = $service->find(1, User::class);
+        $user = $service->find(1);
 
         if($pwd && isset($user) && $pwd == $user->password){
             $_SESSION['account'] = $acc;

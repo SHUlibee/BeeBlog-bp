@@ -24,13 +24,13 @@ class HomeController extends Controller{
     
     public function blogListAction(){
         $this->blogService = new BlogService();
-        $blogs = $this->blogService->findList(array(), Blog::class);
-        $total = $this->blogService->count(array(), Blog::class);
+        $blogs = $this->blogService->findList(array());
+        $total = $this->blogService->count(array());
 
         $res = new DataGridResponse();
-        $res->setResult('success');
+        $res->setResult('ok');
         $res->setData($blogs);
-        $res->setPaper([
+        $res->setPager([
             'page' => 1,
             'recTotal' => $total,
             'recPerPage' => 10,

@@ -7,7 +7,8 @@
     <title>Hello world!</title>
     <!-- zui -->
     <link href="/Assert/zui/css/zui.min.css" rel="stylesheet">
-    <link href="/Assert/zui/lib/datagrid/zui.datagrid.min.css" rel="stylesheet">
+    <link href="/Assert/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Assert/bootstrap/lib/bootstrap-table-1.11.1/bootstrap-table.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -63,7 +64,7 @@
 </nav>
 </div>
 <div class="col-lg-10 col-md-9">
-    <div id="myDataGrid" class="datagrid"></div>
+    <table id="table"></table>
 
     <article class="article">
         <!-- 文章头部 -->
@@ -96,30 +97,26 @@
 </div>
 
 <!-- jQuery (ZUI中的Javascript组件依赖于jQuery) -->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/Assert/jquery-1.11.3.min.js"></script>
 <!-- ZUI Javascript组件 -->
 <script src="/Assert/zui/js/zui.min.js"></script>
-<script src="/Assert/zui/lib/datagrid/zui.datagrid.min.js"></script>
+<script src="/Assert/bootstrap/bootstrap.min.js"></script>
+<script src="/Assert/bootstrap/lib/bootstrap-table-1.11.1/bootstrap-table.min.js"></script>
+<script src="/Assert/bootstrap/lib/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
 
 <script>
 
-    $('#myDataGrid').datagrid({
-        dataSource: {
-            cols:[
-                {name: 'time', label: '时间', width: 132},
-                {name: 'hero', label: '英雄', width: 134},
-                {name: 'action', label: '动作', width: 109},
-                {name: 'target', label: '目标', width: 109},
-                {name: 'desc', label: '描述', width: 287}
-            ],
-            array:[
-                {time: '00:11:12', hero:'幻影刺客', action: '击杀', target: '斧王', desc: '幻影刺客击杀了斧王。'},
-                {time: '00:13:22', hero:'幻影刺客', action: '购买了', target: '隐刀', desc: '幻影刺客购买了隐刀。'},
-                {time: '00:19:36', hero:'斧王', action: '购买了', target: '黑皇杖', desc: '斧王购买了黑皇杖。'},
-                {time: '00:21:43', hero:'力丸', action: '购买了', target: '隐刀', desc: '力丸购买了隐刀。'}
-            ]
-        },
-        // ... 其他初始化选项
+    $('#table').bootstrapTable({
+        url: 'blog/list',
+        columns: [
+            {field: 'id',title: 'ID'},
+            {field: 'title',title: '标题'},
+            {field: 'author_id',title: '作者'},
+            {field: 'category_id',title: '分类'},
+            {field: 'tags',title: '标签'},
+            {field: 'content',title: '内容'},
+            {field: 'status',title: '状态'}
+        ]
     });
 
 </script>

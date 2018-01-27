@@ -12,8 +12,8 @@ use BeePHP\Http\Response;
 class DataGridResponse extends Response{
     public $result;
     public $data;
-    public $message;
-    public $paper;
+    public $message = "";
+    public $pager;
 
     /**
      * @return mixed
@@ -66,17 +66,17 @@ class DataGridResponse extends Response{
     /**
      * @return mixed
      */
-    public function getPaper()
+    public function getPager()
     {
-        return $this->paper;
+        return $this->pager;
     }
 
     /**
-     * @param mixed $paper
+     * @param mixed $pager
      */
-    public function setPaper($paper)
+    public function setPager($pager)
     {
-        $this->paper = $paper;
+        $this->pager = $pager;
     }
     
     
