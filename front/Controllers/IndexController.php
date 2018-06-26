@@ -28,4 +28,11 @@ class IndexController extends Controller{
         return $view;
     }
 
+
+    public function vueAction(){
+        $view = new View(['suffix' => '.html']);
+        $view->render("home/vue");
+
+        return $view;
+    }
 }

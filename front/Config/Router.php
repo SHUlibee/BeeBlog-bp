@@ -15,5 +15,9 @@ $router->add('/', [
     'Controller' => 'Front\Controllers\IndexController',
     'Action' => 'indexAction'
 ]);
+$router->add('/vue', [
+    'Controller' => 'Front\Controllers\IndexController',
+    'Action' => 'vueAction'
+]);
 
 return $router;

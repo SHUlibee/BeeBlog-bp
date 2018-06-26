@@ -63,6 +63,7 @@
     </ul>
 </nav>
 </div>
+
 <div class="col-lg-10 col-md-9">
     <table id="table"></table>
 
@@ -107,7 +108,9 @@
 <script>
 
     $('#table').bootstrapTable({
-        url: 'blog/list',
+        url: '/blog/list',
+        pagination: true,
+        paginationLoop: true,
         columns: [
             {field: 'id',title: 'ID'},
             {field: 'title',title: '标题'},

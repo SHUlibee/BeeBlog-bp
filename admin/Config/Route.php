@@ -15,7 +15,7 @@ $router->add('/', [
 $router->add('/login', [
     'Controller' => 'Admin\Controllers\LoginController',
     'Action' => 'loginAction'
-]);
+], 'post');
 
 $router->add('/home', [
     'Controller' => 'Admin\Controllers\HomeController',
@@ -24,6 +24,6 @@ $router->add('/home', [
 $router->add('/blog/list', [
     'Controller' => 'Admin\Controllers\HomeController',
     'Action' => 'blogListAction'
-], 'post');
+], 'get');
 
 return $router;
