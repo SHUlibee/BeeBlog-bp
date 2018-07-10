@@ -31,7 +31,10 @@ class IndexController extends Controller{
 
     public function vueAction(){
         $view = new View(['suffix' => '.html']);
+        $service = new BlogService();
+        $blog = $service->find(1, Blog::class);
         $view->render("home/vue");
+        $view->assign('blogs', [$blog]);
 
         return $view;
     }
