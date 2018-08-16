@@ -17,26 +17,14 @@ class HomeController extends Controller{
 
 	public function indexAction(){
         $view = new View();
-        $view->render("home/view");
-
+        $view->render("index");
         return $view;
 	}
-    
-    public function blogListAction(){
-        $this->blogService = new BlogService();
-        $blogs = $this->blogService->findList(array());
-        $total = $this->blogService->count(array());
 
-        $res = new DataGridResponse();
-        $res->setResult('ok');
-        $res->setData($blogs);
-        $res->setPager([
-            'page' => 1,
-            'recTotal' => $total,
-            'recPerPage' => 10,
-        ]);
-
-        return $res;
+    public function blogAction(){
+        $view = new View();
+        $view->render("home/index");
+        return $view;
     }
 
     public function test(){

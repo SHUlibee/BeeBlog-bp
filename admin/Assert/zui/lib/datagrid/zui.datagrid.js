@@ -1,5 +1,5 @@
 /*!
- * ZUI: 数据表格② - v1.8.0 - 2018-01-04
+ * ZUI: 数据表格② - v1.8.1 - 2018-01-18
  * http://zui.sexy
  * GitHub: https://github.com/easysoft/zui.git 
  * Copyright (c) 2018 cnezsoft.com; Licensed MIT
@@ -275,7 +275,7 @@
         date: {
             getter: function(dataValue, cell, dataGrid) {
                 var formater = dataGrid.options.defaultDateFormater;
-                return dataValue + ',' + Date.create(dataValue).format(formater);
+                return Date.create(dataValue).format(formater);
             },
             setter: function(inputValue, cell, dataGrid) {
                 if (typeof inputValue === 'string') {
@@ -464,8 +464,11 @@
         };
         createScrollbar('h');
         createScrollbar('v');
+        var mouseWheelFactor = options.mouseWheelFactor;
+        var isWindows = window.navigator.userAgent.match(/Win/i);
+        if (isWindows) mouseWheelFactor *= 20;
         $container.on('mousewheel', function(event) {
-            that.scroll(that.layout.scrollLeft + Math.round(event.deltaX), that.layout.scrollTop + Math.round(event.deltaY));
+            that.scroll(that.layout.scrollLeft - Math.round(event.deltaX * mouseWheelFactor), that.layout.scrollTop - Math.round(event.deltaY * mouseWheelFactor));
             event.preventDefault();
         });
 
@@ -540,6 +543,7 @@
                 that.selectable = $cells.selectable($.extend({
                     selector: '.datagrid-row-cell',
                     // selectClass: false,
+                    trigger: options.checkByClickRow ? null : '.datagrid-row-cell .datagrid-has-checkbox',
                     clickBehavior: 'multi',
                     select: function(data) {
                         that.checkRow(data.id, true);
@@ -679,7 +683,7 @@
         }
         if (dataSource.cache === true || dataSource.cache === undefined) {
             dataSource.cache = [];
-            dataSource.cacheSize = 10;
+            dataSource.cacheSize = 1;
         } else if (typeof dataSource.cache === 'number') {
             dataSource.cacheSize = dataSource.cache;
             dataSource.cache = [];
@@ -1003,7 +1007,7 @@
             var rowIndexWidth       = options.rowIndexWidth;
             var colsLayout          = [{
                 left: 0,
-                width: options.showRowIndex ? (rowIndexWidth === 'auto' ? ((dataLength + that.pager.skip + '').length * 8 + 16) : rowIndexWidth) : 0
+                width: options.showRowIndex ? (rowIndexWidth === 'auto' ? ((dataLength + that.pager.skip + '').length * 8 + 18) : rowIndexWidth) : 0
             }];
             var cellsTotalWidth     = 0;
             var fixedWidth          = colsLayout[0].width;
@@ -1020,7 +1024,7 @@
                     colWidth = 0.1;
                 }
                 colLayout = {left: 0};
-            if (colWidth >= 1) {
+                if (colWidth >= 1) {
                     if (col.minWidth !== undefined) {
                         colWidth = Math.max(colWidth, col.minWidth);
                     }
@@ -1049,6 +1053,7 @@
                 colsLayout[0].checkbox = true;
                 if (rowIndexWidth === 'auto') {
                     colsLayout[0].width += 30;
+                    fixedWidth += 30;
                 }
             }
             var flexWidth    = containerWidth - fixedWidth;
@@ -1057,7 +1062,7 @@
             for (var j = 0; j < colsLenght; ++j) {
                 colLayout = colsLayout[j];
                 colWidth = colLayout.width;
-                if (!colWidth) {
+                if (!colWidth && colWidth !== 0) {
                     if (autoOverflow) {
                         colWidth = colAutoDefaultWidth * colLayout.grow * 10;
                     } else {
@@ -1116,6 +1121,12 @@
         var config = that.getCellConfig(rowIndex, colIndex);
         var col = colIndex > 0 ? that.dataSource.cols[colIndex - 1] : null;
         var type, value;
+        var cell = {
+            rowIndex: rowIndex,
+            colIndex: colIndex,
+            config:   config,
+            checked:  that.isRowChecked(config.rowId)
+        };
         if (colIndex === 0) {
             type = 'index';
             var colLabel = rowIndex > 0 ? (that.pager.skip + rowIndex) : '';
@@ -1127,23 +1138,16 @@
             type = 'cell';
             value = config.data && config.data[that.options.dataItemIsArray ? colIndex : col.name];
         }
-        if (rowIndex > 0 && config.valueType) {
-            var valueOperator = config.valueOperator || that.options.valueOperator;
-            if (valueOperator) {
-                var typeOperator = valueOperator[config.valueType];
-                if (typeOperator && typeOperator.getter) {
-                    value = typeOperator.getter(value, cell, that);
-                }
+        if (rowIndex > 0) {
+            var optionsValueOperator = that.options.valueOperator;
+            var valueType = config.valueType;
+            var valueOperator = config.valueOperator || (optionsValueOperator && valueType ? optionsValueOperator[valueType] : null);
+            if (valueOperator && valueOperator.getter) {
+                value = valueOperator.getter(value, cell, that);
             }
         }
-        var cell = {
-            type:     type,
-            value:    value,
-            rowIndex: rowIndex,
-            colIndex: colIndex,
-            config:   config,
-            checked:  that.isRowChecked(config.rowId)
-        };
+        cell.value = value;
+        cell.type = type;
         var spanMap = that.layout.spanMap;
         if (spanMap[config.id] || config.hidden) {
             cell.hidden = true;
@@ -1175,7 +1179,8 @@
         }
         var dataItem = rowIndex > 0 ? that.getDataItem(rowIndex - 1) : null;
         config.data = dataItem;
-        config.rowId = dataItem ? (dataItem.rowId || dataItem.id) : (rowIndex === 0 ? '#header' : rowIndex);
+        var rowId = dataItem && (dataItem.rowId || dataItem.id);
+        config.rowId = rowId !== undefined ? rowId : (rowIndex === 0 ? '#header' : rowIndex);
         return config;
     };
 
@@ -1343,7 +1348,7 @@
             options.cellFormator($cell, cell, that);
         } else {
             var $content = isCheckbox ? $cell.find('.content') : $cell;
-            $content[cell.html ? 'html' : 'text'](cell.value);
+            $content[cell.config.html ? 'html' : 'text'](cell.value);
             if (config.className) {
                 $cell.addClass(config.className);
             }
@@ -1790,7 +1795,9 @@
         checkByClickRow: true,
 
         // Let user check rows by drag
-        selectable: true
+        selectable: true,
+
+        mouseWheelFactor: 1,
     };
 
     // Extense jquery element

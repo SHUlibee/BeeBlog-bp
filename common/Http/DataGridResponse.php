@@ -7,6 +7,7 @@
  */
 namespace Common\Http;
 
+use BeePHP\Http\Header;
 use BeePHP\Http\Response;
 
 class DataGridResponse extends Response{
@@ -14,6 +15,15 @@ class DataGridResponse extends Response{
     public $data;
     public $message = "";
     public $pager;
+
+    protected $header;
+
+    function __construct($object = null){
+        parent::__construct($object);
+        $header = new Header();
+        $header->setContentType('text/html');
+        $this->header = $header;
+    }
 
     /**
      * @return mixed

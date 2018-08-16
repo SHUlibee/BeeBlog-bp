@@ -1,0 +1,67 @@
+<head>
+    <link href="/Assert/zui/lib/kindeditor/kindeditor.min.css" rel="stylesheet"/>
+</head>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h5 class="panel-title">撰写文章</h5></div>
+    <div class="panel-body">
+        <form id="form-add-blog" method="post">
+            <div class="col-lg-10 col-md-9">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                    <textarea id="contentSimple" name="content" class="form-control kindeditorSimple" style="height:300px;">Hello, world!</textarea>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="标签，多标签以(,)隔开">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="category_id" name="category_id">
+                        <option value="0">未分类</option>
+                        <option value="1">redis</option>
+                        <option value="2">PHP</option>
+                    </select>
+                </div>
+                <a href="javascript:;" class="btn btn-primary pull-right" id="btn-add-blog">发布</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script charset="utf-8" src="/Assert/zui/lib/kindeditor/kindeditor.min.js"></script>
+<script charset="utf-8" src="/Assert/zui/lib/kindeditor/lang/zh_CN.js"></script>
+<script>
+    $(document).ready(function(){
+
+        KindEditor.create('textarea.kindeditorSimple', {
+            basePath: '/dist/lib/kindeditor/',
+            bodyClass : 'article-content',
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : false,
+            items : [
+                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                'insertunorderedlist', '|', 'emoticons', 'image', 'link'
+            ]
+        });
+
+        $('#btn-add-blog').on('click', function () {
+            $.ajax({
+                method: 'post',
+                url: 'blog/add',
+                data: $('form-add-blog').serialize(),
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            })
+        });
+
+    });
+</script>

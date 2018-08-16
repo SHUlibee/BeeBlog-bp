@@ -23,6 +23,6 @@ class Blog extends Model{
 
     public function init(){
         // TODO: Implement init() method.
-
+        
     }
 }
