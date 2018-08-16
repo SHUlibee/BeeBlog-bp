@@ -11,7 +11,7 @@
                     <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
                 </div>
                 <div class="form-group">
-                    <textarea id="contentSimple" name="content" class="form-control kindeditorSimple" style="height:300px;">Hello, world!</textarea>
+                    <textarea id="contentSimple" name="content" class="form-control kindeditorSimple" style="height:300px;"></textarea>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3">
@@ -53,9 +53,12 @@
             $.ajax({
                 method: 'post',
                 url: 'blog/add',
-                data: $('form-add-blog').serialize(),
+                data: $('#form-add-blog').serialize(),
                 success: function(data){
-                    console.log(data);
+                    if(data.code == 1){
+                        alert('发布成功！');
+                    }
+                    $('#form-add-blog')[0].reset();
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
 

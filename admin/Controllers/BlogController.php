@@ -4,6 +4,7 @@ namespace Admin\Controllers;
 use Admin\Model\Blog;
 use BeePHP\Http\Response;
 use BeePHP\Mvc\Controller;
+use BeePHP\Mvc\Model\ModelFactory;
 use BeePHP\Mvc\View;
 use Admin\Service\BlogService;
 use Common\Http\BootstrapTableResponse;
@@ -25,6 +26,8 @@ class BlogController extends Controller{
         $view->setConfig('suffix', '.html');
         $view->setConfig('templateDir', 'View/templates/');
         $this->view = $view;
+
+        $this->blogService = new BlogService();
     }
 
     public function indexAction(){
@@ -33,7 +36,6 @@ class BlogController extends Controller{
 	}
 
     public function listAction(){
-        $this->blogService = new BlogService();
         $blogs = $this->blogService->findList(array());
         $total = $this->blogService->count(array());
 
@@ -46,8 +48,8 @@ class BlogController extends Controller{
     public function addAction(){
 
         if($this->request->isPost()){
-            $blog = new Blog();
-            $res = $this->blogService->create($this->request->getPost());
+            $blog = ModelFactory::convert($this->request->getPost(), Blog::class);
+            $res = $this->blogService->create($blog);
             return new Response(['code' => 1, 'message' => $res]);
         }
         
