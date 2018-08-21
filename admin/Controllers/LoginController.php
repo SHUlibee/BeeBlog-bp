@@ -3,8 +3,7 @@
 namespace Admin\Controllers;
 
 
-use Admin\Model\User;
-use Admin\Service\UserService;
+use Common\Service\UserService;
 use BeePHP\Mvc\Controller;
 use BeePHP\Mvc\View;
 

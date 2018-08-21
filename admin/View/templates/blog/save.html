@@ -1,0 +1,46 @@
+<head>
+    <link href="/Assert/zui/lib/kindeditor/kindeditor.min.css" rel="stylesheet"/>
+    <link href="/Assert/zui/lib/datetimepicker/datetimepicker.min.css" rel="stylesheet">
+</head>
+
+<div class="panel panel-default">
+    <?php if(!isset($id)): ?>
+    <div class="panel-heading"><h5 class="panel-title">撰写文章</h5></div>
+    <?php endif ?>
+    <div class="panel-body">
+        <form id="form-add-blog" method="post">
+            <?php if(isset($id)): ?>
+            <input type="hidden" id="id" name="id" value="<?php echo $id ?>">
+            <?php endif ?>
+            <div class="col-lg-10 col-md-9">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
+                </div>
+                <div class="form-group">
+                    <textarea id="txt-content" name="content" class="form-control" style="width:100%; height:300px;"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="标签，多标签以(,)隔开">
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="category_id" name="category_id">
+                        <option value="0">未分类</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="create_time" name="create_time" placeholder="发布时间">
+                </div>
+                <a href="javascript:;" class="btn btn-primary pull-right" id="btn-save-blog">发布</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/Assert/zui/lib/kindeditor/kindeditor.min.js"></script>
+<script src="/Assert/zui/lib/kindeditor/lang/zh_CN.js"></script>
+<script src="/Assert/zui/lib/datetimepicker/datetimepicker.min.js"></script>
+<script src="/View/static/blog/save.js"></script>
+<script>
+</script>

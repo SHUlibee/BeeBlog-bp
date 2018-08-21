@@ -11,23 +11,24 @@ namespace Front\Controllers;
 
 use BeePHP\Mvc\Controller;
 use BeePHP\Mvc\View;
-use Front\Model\Blog;
-use Front\Service\BlogService;
+use Common\Model\Blog;
+use Common\Service\BlogService;
 
 class IndexController extends Controller{
+
+
 
     public function indexAction(){
 
         $service = new BlogService();
-        $blog = $service->find(1, Blog::class);
+        $blog = $service->findList(array());
 
         $view = new View();
-        $view->assign('blogs', [$blog]);
+        $view->assign('blogs', $blog);
         $view->render("home/index");
 
         return $view;
     }
-
 
     public function vueAction(){
         $view = new View(['suffix' => '.html']);

@@ -33,12 +33,21 @@ $router->add('/blog/list2', [
     'Controller' => 'Admin\Controllers\BlogController',
     'Action' => 'list2Action'
 ], 'get');
+$router->addGet('/blog/getById', [
+    'Controller' => 'Admin\Controllers\BlogController',
+    'Action' => 'getByIdAction']);
 $router->addGet('/blog/add', [
     'Controller' => 'Admin\Controllers\BlogController',
     'Action' => 'addAction']);
-$router->add('/blog/add', [
+$router->addGet('/blog/update', [
     'Controller' => 'Admin\Controllers\BlogController',
-    'Action' => 'addAction'
-], 'post');
+    'Action' => 'updateAction']);
+$router->addPost('/blog/save', [
+    'Controller' => 'Admin\Controllers\BlogController',
+    'Action' => 'saveAction']);
+
+$router->addGet('/category/list', [
+    'Controller' => 'Admin\Controllers\CategoryController',
+    'Action' => 'listAction']);
 
 return $router;

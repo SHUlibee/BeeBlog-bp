@@ -1,51 +1,11 @@
 <head>
     <link href="/Assert/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+    <link href="/Assert/zui/lib/bootbox/bootbox.min.css">
 </head>
 
 <table id="table-blog"></table>
 
 <script src="/Assert/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
 <script src="/Assert/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
-<script>
-    $(document).ready(function() {
-
-        $('#table-blog').bootstrapTable({
-            url: '/blog/list',
-            striped: true,
-            search: false,
-            showRefresh: false,
-            showColumns: false,
-            minimumCountColumns: 2,
-            clickToSelect: true,
-            // detailView: true,
-            // detailFormatter: 'detailFormatter',
-//        pagination: true, //分页有问题，妈卖批
-            paginationLoop: false,
-            sidePagination: 'server',
-            silentSort: false,
-            smartDisplay: false,
-            escape: true,
-            searchOnEnterKey: true,
-            idField: 'id',
-//        sortName: 'createTime',
-//        sortOrder: 'desc',
-            sortStable: true,
-            maintainSelected: true,
-            columns: [
-                {field: 'id',title: 'ID'},
-                {field: 'title',title: '标题'},
-                {field: 'author_id',title: '作者'},
-                {field: 'category_id',title: '分类'},
-                {field: 'tags',title: '标签'},
-                {field: 'content',title: '内容'},
-                {field: 'status',title: '状态'},
-            ],
-            onLoadSuccess: function(res){
-                console.log(res);
-            }
-        });
-
-
-    });
-
-</script>
+<script src="/Assert/zui/lib/bootbox/bootbox.min.js"></script>
+<script src="/View/static/blog/index.js"></script>

@@ -15,7 +15,8 @@ $loader = new \BeePHP\ClassLoader();
 $loader->registerDirs([
 //    __DIR__ . "/Controllers",
 ])->registerNamespaces([
-    'Front' => __DIR__
+    'Front' => __DIR__,
+    'Common' => __DIR__ . '/../common'
 ])->register();
 
 //路由控制

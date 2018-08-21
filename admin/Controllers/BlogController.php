@@ -1,14 +1,13 @@
 <?php
 namespace Admin\Controllers;
 
-use Admin\Model\Blog;
+use Common\Model\Blog;
 use BeePHP\Http\Response;
 use BeePHP\Mvc\Controller;
 use BeePHP\Mvc\Model\ModelFactory;
 use BeePHP\Mvc\View;
-use Admin\Service\BlogService;
+use Common\Service\BlogService;
 use Common\Http\BootstrapTableResponse;
-use Common\Http\DataGridResponse;
 
 class BlogController extends Controller{
 
@@ -30,6 +29,15 @@ class BlogController extends Controller{
         $this->blogService = new BlogService();
     }
 
+    public function getByIdAction(){
+        $id = $this->request->getParams('id');
+        if(!isset($id) || empty($id)){
+            return null;
+        }
+        $blog = $this->blogService->find($id);
+        return new Response($blog);
+    }
+
     public function indexAction(){
         $this->view->render("blog/index");
         return $this->view;
@@ -45,16 +53,24 @@ class BlogController extends Controller{
         return $res;
     }
 
-    public function addAction(){
+    public function saveAction(){
+        $blog = ModelFactory::convert($this->request->getPost(), Blog::class);
+        $res = $this->blogService->create($blog);
+        return new Response(['code' => 1, 'message' => $res]);
+    }
 
-        if($this->request->isPost()){
-            $blog = ModelFactory::convert($this->request->getPost(), Blog::class);
-            $res = $this->blogService->create($blog);
-            return new Response(['code' => 1, 'message' => $res]);
-        }
-        
-        $this->view->render("blog/add");
+    public function addAction(){
+        $this->view->render("blog/save");
         return $this->view;
     }
+
+    public function updateAction(){
+        $id = $this->request->getParams('id');
+
+        $this->view->render("blog/save");
+        $this->view->assign('id', $id);
+        return $this->view;
+    }
+
 
 }
