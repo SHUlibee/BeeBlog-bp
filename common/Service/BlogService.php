@@ -14,7 +14,7 @@ use BeePHP\Mvc\Service;
 class BlogService extends Service{
 
     protected $modelClass = Blog::class;
-
+    
     function __construct(){
         $this->setDbAdapter(Di::getDynamic('dbAdapter'));
     }

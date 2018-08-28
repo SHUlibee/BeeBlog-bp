@@ -55,8 +55,13 @@ class BlogController extends Controller{
 
     public function saveAction(){
         $blog = ModelFactory::convert($this->request->getPost(), Blog::class);
-        $res = $this->blogService->create($blog);
-        return new Response(['code' => 1, 'message' => $res]);
+        if(isset($blog->id)){
+            $res = $this->blogService->update($blog);
+            return new Response(['code' => 2, 'message' => $res]);
+        }else{
+            $res = $this->blogService->create($blog);
+            return new Response(['code' => 1, 'message' => $res]);
+        }
     }
 
     public function addAction(){
@@ -72,5 +77,12 @@ class BlogController extends Controller{
         return $this->view;
     }
 
+    public function deleteAction(){
+        $id = $this->request->getParams('id');
+        $blog = new Blog();
+        $blog->id = $id;
+        $res = $this->blogService->delete($blog);
+        return new Response(['code' => 1, 'message' => $res]);
+    }
 
 }

@@ -8,7 +8,7 @@
     <div class="panel-heading"><h5 class="panel-title">撰写文章</h5></div>
     <?php endif ?>
     <div class="panel-body">
-        <form id="form-add-blog" method="post">
+        <form id="form-save-blog" method="post">
             <?php if(isset($id)): ?>
             <input type="hidden" id="id" name="id" value="<?php echo $id ?>">
             <?php endif ?>
@@ -17,7 +17,7 @@
                     <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
                 </div>
                 <div class="form-group">
-                    <textarea id="txt-content" name="content" class="form-control" style="width:100%; height:300px;"></textarea>
+                    <textarea id="content" name="content" class="form-control" style="width:100%; height:300px;"></textarea>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3">
@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="create_time" name="create_time" placeholder="发布时间">
+                    <input type="text" class="form-control form-datetime" id="create_time" name="create_time" placeholder="发布时间">
                 </div>
                 <a href="javascript:;" class="btn btn-primary pull-right" id="btn-save-blog">发布</a>
             </div>

@@ -43,9 +43,9 @@
 <div class="col-sm-2">
     <nav class="menu" data-ride="menu" style="">
         <ul id="treeMenu" class="tree tree-menu" data-ride="tree">
-            <li><a href="javascript:;"><i class="icon icon-th"></i>首页</a></li>
+            <li class="active"><a href="javascript:;"><i class="icon icon-th"></i>首页</a></li>
             <li><a href="javascript:;"><i class="icon icon-user"></i>个人资料</a></li>
-            <li>
+            <li class="open">
                 <a href="javascript:;"><i class="icon icon-time"></i>博客管理</a>
                 <ul>
                     <li><a href="javascript:;" data-href="http://admin.beeblog.cn/blog">博客列表</a></li>
@@ -64,7 +64,7 @@
                             <li><a href="javascript:;">已关闭</a></li>
                         </ul>
                     </li>
-                    <li class="active"><a href="javascript:;"><i class="icon icon-play-sign"></i>进行中</a></li>
+                    <li><a href="javascript:;"><i class="icon icon-play-sign"></i>进行中</a></li>
                     <li><a href="javascript:;"><i class="icon icon-ok-sign"></i>已完成</a></li>
                 </ul>
             </li>

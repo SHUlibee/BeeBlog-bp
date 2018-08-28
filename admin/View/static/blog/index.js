@@ -3,6 +3,8 @@
  */
 $(document).ready(function() {
 
+
+
     $('#table-blog').bootstrapTable({
         url: '/blog/list',
         striped: true,
@@ -35,9 +37,12 @@ $(document).ready(function() {
                 return value.substr(0, 100) + '...';
             }},
             {field: 'status',title: '状态'},
-            {field: 'action',title: '预览', formatter: function (value, row, index) {
-                return '<a href="javascript:;" class="btn btn-sm btn-info" onclick="contentPreview(' + row.id + ')">预览</a>' +
-                    '<a href="javascript:;" class="btn btn-sm btn-info" onclick="updateAction(' + row.id + ')">更新</a>';
+            {field: 'action',title: '预览', width: 150, formatter: function (value, row, index) {
+                return '<div class="btn-group">' +
+                    '<a href="javascript:;" class="btn btn-sm btn-info" onclick="contentPreview(' + row.id + ')">预览</a>' +
+                    '<a href="javascript:;" class="btn btn-sm btn-primary" onclick="updateAction(' + row.id + ')">更新</a>' +
+                    '<a href="javascript:;" class="btn btn-sm btn-danger" onclick="deleteAction(' + row.id + ')">删除</a>' +
+                    '</div>';
             }},
         ],
         onLoadSuccess: function(res){
@@ -68,5 +73,21 @@ function updateAction(id){
 
             }
         });
+    });
+}
+
+function deleteAction(id){
+    $.ajax({
+        method: 'get',
+        url: 'blog/delete?id=' + id,
+        success: function(data){
+            $('#table-blog').bootstrapTable('refresh');
+            if(data.code == 1){
+                alert("删除成功！")
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+        }
     });
 }

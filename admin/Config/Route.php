@@ -42,6 +42,9 @@ $router->addGet('/blog/add', [
 $router->addGet('/blog/update', [
     'Controller' => 'Admin\Controllers\BlogController',
     'Action' => 'updateAction']);
+$router->addGet('/blog/delete', [
+    'Controller' => 'Admin\Controllers\BlogController',
+    'Action' => 'deleteAction']);
 $router->addPost('/blog/save', [
     'Controller' => 'Admin\Controllers\BlogController',
     'Action' => 'saveAction']);
